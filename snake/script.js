@@ -2,6 +2,8 @@ const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const grid = 20;
 let count = 0;
+let score = 0;
+const scoreEl = document.getElementById('score');
 
 const snake = {
   x: 160,
@@ -60,6 +62,7 @@ function loop() {
 
     if (cell.x === apple.x && cell.y === apple.y) {
       snake.maxCells++;
+      score++;
       apple.x = getRandomInt(0, 20) * grid;
       apple.y = getRandomInt(0, 20) * grid;
     }
@@ -72,11 +75,13 @@ function loop() {
         snake.maxCells = 4;
         snake.dx = grid;
         snake.dy = 0;
+        score = 0;
         apple.x = getRandomInt(0, 20) * grid;
         apple.y = getRandomInt(0, 20) * grid;
       }
     }
   });
+  scoreEl.textContent = 'Score: ' + score;
 }
 
 document.addEventListener('keydown', (e) => {
